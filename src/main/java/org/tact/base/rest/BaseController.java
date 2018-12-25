@@ -42,7 +42,7 @@ public class BaseController {
     
     /**
      * 
-     * @param song
+     * @param youtube_link
      * @return
      * 
      * 
@@ -52,68 +52,32 @@ public class BaseController {
      */
     @GetMapping(value = "/by/youtubelink")
     public <T> T getSongByYoutubelink(
-    		@RequestParam(value = "song")String song) {
+    		@RequestParam(value = "youtube_link")String youtube_link) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
-        map.put("state", song);
-        map.put("Song", songMapper.findBySong(song));
+        map.put("song", youtube_link);
+        map.put("Song", songMapper.findBySong(youtube_link));
         
         return (T) map;
     }
     
+
     /**
      * 
-     * @param country
+     * @param username
      * @return
      * 
      * Possible urls:
 	 * 		http://localhost:1878/feeli/by/username
-     *
+     * 
      */
     @GetMapping(value = "/by/username")
-    public <T> T getSongByUsername(
-    @RequestParam(value = "username")String username) {
+    public <T> T getSongsByUsername(
+    		@RequestParam(value = "username")String username) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
         map.put("username", username);
-        map.put("song", songMapper.findByCountry(username));
-        return (T) map;
-    }
-    /**
-     * 
-     * @param state
-     * @return
-     * 
-     * Possible urls:
-	 * 		http://localhost:1878/base/cities
-     */
-    @GetMapping(value = "/cities")
-    public <T> T getCitiesByState(
-    		@RequestParam(value = "state")String state) {
-        Map<String, Object> map = new LinkedHashMap<String, Object>();
-        
-        map.put("state", state);
-        map.put("cities", songMapper.findMultipleSongsByUsername(state));
-        
-        return (T) map;
-    }
-    
-    
-    /**
-     * 
-     * @param country
-     * @return
-     * 
-     * Possible urls:
-	 * 		http://localhost:1878/base/cities/by/country
-     */
-    @GetMapping(value = "/cities/by/country")
-    public <T> T getCitiesByCountry(
-    		@RequestParam(value = "country")String country) {
-        Map<String, Object> map = new LinkedHashMap<String, Object>();
-        
-        map.put("state", country);
-        map.put("cities", songMapper.findMultipleSongsByUsername(country));
+        map.put("songs", songMapper.findByUsername(username));
         
         return (T) map;
     }

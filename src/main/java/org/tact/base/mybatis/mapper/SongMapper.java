@@ -10,9 +10,9 @@ import org.tact.base.mybatis.domain.Song;
 @Mapper
 public interface SongMapper {
 
-	Song findBySong(@Param("song") String song);
+	List<Song> findBySong(@Param("youtube_link") String youtube_link);
 	
-	List<Song> findMultipleSongsByUsername(@Param("username") String username);
+	List<Song> findByUsername(@Param("username") String username);
 	
 	Song findByCountry(@Param("country") String country);
 	
