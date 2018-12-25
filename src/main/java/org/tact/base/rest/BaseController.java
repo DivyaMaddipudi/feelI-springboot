@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.tact.base.mybatis.mapper.CityMapper;
+import org.tact.base.mybatis.mapper.SongMapper;
 
 @RestController
-@RequestMapping(value = "/base")
+@RequestMapping(value = "/feeli")
 public class BaseController {
 	
 	@Autowired
-    private CityMapper cityMapper;
+    private SongMapper songMapper;
 	
 	/**
 	 * 
 	 * @return
 	 * 
 	 * Possible urls:
-	 * 		http://localhost:1878/base/
+	 * 		http://localhost:1878/feeli/
 	 */
     @GetMapping(value = "")
     public <T> T testBase() {
@@ -40,20 +40,21 @@ public class BaseController {
     
     /**
      * 
-     * @param state
+     * @param song
      * @return
      * 
-     * Possible urls:
-	 * 		http://localhost:1878/base/city
      * 
+     * Possible urls:
+	 * 		http://localhost:1878/feeli/song
+	 * 
      */
-    @GetMapping(value = "/city")
-    public <T> T getCityByState(
-    		@RequestParam(value = "state")String state) {
+    @GetMapping(value = "/song")
+    public <T> T getSongByState(
+    		@RequestParam(value = "song")String song) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
-        map.put("state", state);
-        map.put("city", cityMapper.findByState(state));
+        map.put("state", song);
+        map.put("Song", songMapper.findBySong(song));
         
         return (T) map;
     }
@@ -64,16 +65,16 @@ public class BaseController {
      * @return
      * 
      * Possible urls:
-	 * 		http://localhost:1878/base/city/by/country
+	 * 		http://localhost:1878/base/song/by/country
      *
      */
-    @GetMapping(value = "/city/by/country")
-    public <T> T getCityByCountry(
+    @GetMapping(value = "/song/by/country")
+    public <T> T getSongByCountry(
     @RequestParam(value = "country")String country) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
         map.put("country", country);
-        map.put("city", cityMapper.findByCountry(country));
+        map.put("song", songMapper.findByCountry(country));
         return (T) map;
     }
     /**
@@ -90,7 +91,7 @@ public class BaseController {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
         map.put("state", state);
-        map.put("cities", cityMapper.findMultipleCitiesByStates(state));
+        map.put("cities", songMapper.findMultipleSongsByUsername(state));
         
         return (T) map;
     }
@@ -110,7 +111,27 @@ public class BaseController {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
         map.put("state", country);
-        map.put("cities", cityMapper.findMultipleCitiesByStates(country));
+        map.put("cities", songMapper.findMultipleSongsByUsername(country));
+        
+        return (T) map;
+    }
+    
+    /**
+     * 
+     * @return
+     * 
+     * 
+     * Possible urls:
+	 * 		http://localhost:1878/feeli/find/all
+     * 
+     */
+    @GetMapping(value = "/find/all")
+    public <T> T findALL(
+    		) {
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        
+       
+        map.put("songs", songMapper.findAll());
         
         return (T) map;
     }
