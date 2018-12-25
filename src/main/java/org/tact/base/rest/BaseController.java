@@ -1,10 +1,12 @@
 package org.tact.base.rest;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -135,4 +137,36 @@ public class BaseController {
         
         return (T) map;
     }
+    
+    /**
+     * 
+     * @param username
+     * @param youtube_link
+     * @param comments
+     * @return
+     * 
+     * Possible urls:
+	 * 		http://localhost:1878/feeli/add/song
+     * 
+     */
+    @PostMapping(value = {"/add/song"})
+   	public  <T> T addSong(
+   		@RequestParam(value = "username")String username,
+   		@RequestParam(value = "youtube_link")String youtube_link,
+   		@RequestParam(value = "comments")String comments
+   	)
+   	{
+       	Map<String, Object> params = new HashMap<String, Object>();
+       	params.put("USERNAME", username);
+       	params.put("YOUTUBE_LINK", youtube_link);
+       	params.put("COMMENTS", comments);
+       	
+   		songMapper.addSong(params);
+   		 
+   	    Map<String, Object> map = new LinkedHashMap<String, Object>();
+   	    map.put("apiresult", 0);
+   	    map.put("apimessage", "ok");
+   	
+   	    return (T) map;
+   	}
 }

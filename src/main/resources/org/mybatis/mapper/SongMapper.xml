@@ -20,5 +20,13 @@
         select * from feelI 
     </select>
     
+    <insert id="addSong" parameterType="map">		
+		INSERT INTO FEELI
+		(
+		USERNAME, YOUTUBE_LINK, COMMENTS
+		)	VALUES(#{USERNAME}, #{YOUTUBE_LINK}, #{COMMENTS})
+	</insert>  
+    
+    
     
 </mapper>

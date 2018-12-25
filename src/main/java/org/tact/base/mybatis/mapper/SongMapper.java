@@ -1,6 +1,7 @@
 package org.tact.base.mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,5 +17,7 @@ public interface SongMapper {
 	Song findByCountry(@Param("country") String country);
 	
 	List<Song> findAll();
+	
+	void addSong(Map<String, Object> params);
 
 }
