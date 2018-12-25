@@ -45,11 +45,11 @@ public class BaseController {
      * 
      * 
      * Possible urls:
-	 * 		http://localhost:1878/feeli/song
+	 * 		http://localhost:1878/feeli/by/youtubelink
 	 * 
      */
-    @GetMapping(value = "/song")
-    public <T> T getSongByState(
+    @GetMapping(value = "/by/youtubelink")
+    public <T> T getSongByYoutubelink(
     		@RequestParam(value = "song")String song) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
@@ -65,16 +65,16 @@ public class BaseController {
      * @return
      * 
      * Possible urls:
-	 * 		http://localhost:1878/base/song/by/country
+	 * 		http://localhost:1878/feeli/by/username
      *
      */
-    @GetMapping(value = "/song/by/country")
-    public <T> T getSongByCountry(
-    @RequestParam(value = "country")String country) {
+    @GetMapping(value = "/by/username")
+    public <T> T getSongByUsername(
+    @RequestParam(value = "username")String username) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         
-        map.put("country", country);
-        map.put("song", songMapper.findByCountry(country));
+        map.put("username", username);
+        map.put("song", songMapper.findByCountry(username));
         return (T) map;
     }
     /**

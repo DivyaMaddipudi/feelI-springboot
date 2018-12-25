@@ -10,7 +10,7 @@ public class Song implements Serializable {
 
 	private String username;
 
-	private String youtubelink;
+	private String youtube_link;
 
 	private String comments;
 
@@ -30,12 +30,12 @@ public class Song implements Serializable {
 		this.username = username;
 	}
 
-	public String getYoutubelink() {
-		return youtubelink;
+	public String getYoutube_link() {
+		return youtube_link;
 	}
 
-	public void setYoutubelink(String youtubelink) {
-		this.youtubelink = youtubelink;
+	public void setYoutube_link(String youtube_link) {
+		this.youtube_link = youtube_link;
 	}
 
 	public String getComments() {
@@ -48,10 +48,8 @@ public class Song implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Song [id=" + id + ", username=" + username + ", youtubelink=" + youtubelink + ", comments=" + comments
+		return "Song [id=" + id + ", username=" + username + ", youtube_link=" + youtube_link + ", comments=" + comments
 				+ "]";
 	}
-
-
 
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test</title>
+</head>
+<body>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<h1>reverse tech stack</h1>
+<p>This is a paragraph.</p>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+
+
+$.ajax({ 
+    type: 'GET', 
+    url: 'http://localhost:1878/employee/skills/by/region', 
+    data: { region: 'mumbai' }, 
+    dataType: 'json',
+    success: function (data) { 
+       /*
+    	$.each(data, function(index, element) {
+            $('body').append($('<div>', {
+                text: element.name
+            }));
+        });
+       */
+      
+       console.log(data);
+       
+       plotGraph(data.skills);
+    }
+});
+
+function plotGraph(skills){
+	
+	graphData = [];
+	
+	for (var key in skills) {
+	    if (skills.hasOwnProperty(key)) {
+	        //console.log(key + " -> " + p[key]);
+	        
+	        skillMap = {
+        		"name": key,
+                 "y": skills[key]	
+	        } 
+	        
+	    	graphData.push(skillMap);
+	    }
+	}
+	
+	//Create the chart
+	Highcharts.chart('container', {
+	    chart: {
+	        type: 'column'
+	    },
+	    title: {
+	        text: 'Reverse-Tech-Stack'
+	    },
+	    xAxis: {
+	        type: 'category'
+	    },
+	    yAxis: {
+	        title: {
+	            text: 'Total Stack Percent'
+	        }
+
+	    },
+	    legend: {
+	        enabled: false
+	    },
+	    plotOptions: {
+	        series: {
+	            borderWidth: 0,
+	            dataLabels: {
+	                enabled: true,
+	                format: '{point.y:.1f}%'
+	            }
+	        }
+	    },
+
+	    tooltip: {
+	        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+	        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+	    },
+
+	    "series": [
+	        {
+	            "name": "Stacks",
+	            "colorByPoint": true,
+	            "data": graphData
+	        }
+	    ]
+	});
+
+}
+
+</script>
+</body>
+</html>
+
